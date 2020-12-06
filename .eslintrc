@@ -1,0 +1,70 @@
+{
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "plugins": ["@typescript-eslint"],
+    "env": { "node": true, "es6": true, "jest": true },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "sourceType": "module",
+        "project": ["./tsconfig.eslint.json"]
+    },
+    "rules": {
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "warn",
+            {
+                "varsIgnorePattern": "^_",
+                "argsIgnorePattern": "^_"
+            }
+        ],
+        "@typescript-eslint/naming-convention": [
+            "warn",
+            { "selector": "default", "format": ["strictCamelCase"] },
+            { "selector": "variableLike", "format": ["strictCamelCase"] },
+            { "selector": "typeLike", "format": ["PascalCase"] },
+            //object literal / data class / type / interface for external json could be snake_case.
+            //other then, prefers strictCamelCase but may be loose camelCase.
+            {
+                "selector": "memberLike",
+                "format": ["camelCase", "snake_case"]
+            },
+            {
+                "selector": "memberLike",
+                "modifiers": ["private"],
+                "format": null,
+                "leadingUnderscore": "require"
+            },
+            //function parameter related options
+            {
+                "selector": "parameter",
+                "format": ["camelCase"],
+                "leadingUnderscore": "allow",
+                "trailingUnderscore": "require"
+            },
+            {
+                "selector": "parameter",
+                "format": ["camelCase"],
+                "modifiers": ["unused"],
+                "leadingUnderscore": "require",
+                "trailingUnderscore": "allow"
+            },
+            {
+                "selector": "parameter",
+                "format": ["camelCase"],
+                "modifiers": ["destructured", "unused"],
+                "leadingUnderscore": "allow",
+                "trailingUnderscore": "allow"
+            },
+            {
+                "selector": "parameter",
+                "format": ["camelCase"],
+                "modifiers": ["destructured"],
+                "leadingUnderscore": "allow",
+                "trailingUnderscore": "allow"
+            }
+        ]
+    }
+}

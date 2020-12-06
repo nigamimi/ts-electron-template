@@ -53,14 +53,14 @@
             },
             {
                 "selector": "parameter",
-                "format": ["camelCase"],
+                "format": null,
                 "modifiers": ["destructured", "unused"],
                 "leadingUnderscore": "allow",
                 "trailingUnderscore": "allow"
             },
             {
                 "selector": "parameter",
-                "format": ["camelCase"],
+                "format": null,
                 "modifiers": ["destructured"],
                 "leadingUnderscore": "allow",
                 "trailingUnderscore": "allow"

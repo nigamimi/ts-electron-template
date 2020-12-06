@@ -6,7 +6,7 @@
     "main": "index.js",
     "scripts": {
         "test": "jest",
-        "tsc": "./node_modules/.bin/tsc",
+        "tsc": "cd main/ && ../node_modules/.bin/tsc & cd ./renderer/ && ../node_modules/.bin/tsc",
         "latest": "yarn upgrade --latest"
     },
     "author": "",

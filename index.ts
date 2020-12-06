@@ -26,17 +26,17 @@ const arr = [
     ["c", "d"],
 ];
 
-arr.forEach(([a_, _b]) => {
-    console.log(a_);
+arr.forEach(([a_, b_]) => {
+    console.log(a_, b_);
 });
 
 const arr2 = [
-    { a: "a", b: "b" },
-    { a: "a", b: "b" },
+    { a: "a", b: "b", c_d: "c" },
+    { a: "a", b: "b", c_d: "c" },
 ];
 
-arr2.forEach(({ a, b }) => {
-    console.log(a, b);
+arr2.forEach(({ a, b, c_d }) => {
+    console.log(a, b, c_d);
 });
 
 const maybeStringifiedAsJSON = {

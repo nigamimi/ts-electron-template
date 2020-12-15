@@ -32,8 +32,15 @@
                 "selector": "memberLike",
                 "format": ["camelCase", "snake_case"]
             },
+            //private member always needs to have leading underscore.
             {
-                "selector": "memberLike",
+                "selector": "classProperty",
+                "modifiers": ["private"],
+                "format": null,
+                "leadingUnderscore": "require"
+            },
+            {
+                "selector": "classMethod",
                 "modifiers": ["private"],
                 "format": null,
                 "leadingUnderscore": "require"
@@ -42,7 +49,7 @@
             {
                 "selector": "parameter",
                 "format": ["camelCase"],
-                "leadingUnderscore": "allow",
+                "leadingUnderscore": "forbid",
                 "trailingUnderscore": "require"
             },
             {
@@ -50,7 +57,19 @@
                 "format": ["camelCase"],
                 "modifiers": ["unused"],
                 "leadingUnderscore": "require",
-                "trailingUnderscore": "allow"
+                "trailingUnderscore": "forbid"
+            },
+            // parameters can have units
+            {
+                "selector": "parameter",
+                "format": ["camelCase"],
+                "leadingUnderscore": "forbid",
+                "trailingUnderscore": "require",
+                "suffix": ["_m","_meter","_km","_cm","_mm","_g","_mg","_kg","_s","_sec","_ms", "_min", "_h"],
+                "filter": {
+                    "regex": "_(m|meter|km|cm|mm|g|mg|kg|s|sec|ms|min|h)_?$",
+                    "match": true
+                }      
             },
             {
                 "selector": "parameter",
@@ -66,6 +85,7 @@
                 "leadingUnderscore": "allow",
                 "trailingUnderscore": "allow"
             },
+            //unexported function allowed to have leading underscore.
             {
                 "selector": "function",
                 "format": null,

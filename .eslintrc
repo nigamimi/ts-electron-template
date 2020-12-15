@@ -2,7 +2,8 @@
     "extends": [
         "eslint:recommended",
         "plugin:@typescript-eslint/eslint-recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "prettier"
     ],
     "plugins": ["@typescript-eslint"],
     "env": { "node": true, "es6": true, "jest": true },
@@ -64,6 +65,17 @@
                 "modifiers": ["destructured"],
                 "leadingUnderscore": "allow",
                 "trailingUnderscore": "allow"
+            },
+            {
+                "selector": "function",
+                "format": null,
+                "leadingUnderscore": "allow"                
+            },
+            {
+                "selector": "function",
+                "format": null,
+                "modifiers": ["exported"],
+                "leadingUnderscore": "forbid"    
             }
         ]
     }

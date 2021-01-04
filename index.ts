@@ -9,11 +9,13 @@ const ishoge = "aaa";
 const isSomething = "aaa";
 
 const setdefault = "aaa";
+//strict camel case warning
 const myID = "id";
 
 console.log(aaa, isHoge, ishoge, isSomething, setdefault, myID);
 
 class Foo {
+    //unsed warning
     constructor(private _name: string, public home: string, hogehoge_: string) {}
 }
 
@@ -26,6 +28,16 @@ const arr = [
     ["c", "d"],
 ];
 
+//warning
+arr.forEach(([a, b]) => {
+    console.log(b);
+});
+arr.forEach(([_, b_]) => {
+    console.log(b_);
+});
+arr.forEach(([_a, b_]) => {
+    console.log(b_);
+});
 arr.forEach(([a_, b_]) => {
     console.log(a_, b_);
 });
@@ -39,10 +51,12 @@ arr2.forEach(({ a, b, c_d }) => {
     console.log(a, b, c_d);
 });
 
-const maybeStringifiedAsJSON = {
+//casing warning
+const _maybeStringifiedAsJson = {
     some_pram: "a",
 };
 
-type externalJSON = {
+//unused warning
+type ExternalJson = {
     some_pram: string;
 };

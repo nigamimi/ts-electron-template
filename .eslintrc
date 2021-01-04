@@ -102,7 +102,7 @@
             {
                 "selector": "function",
                 "format": null,
-                "leadingUnderscore": "required"
+                "leadingUnderscore": "require"
             },
             {
                 "selector": "function",

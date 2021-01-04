@@ -47,6 +47,6 @@
         "noFallthroughCasesInSwitch": true,
         "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
     },
-    "include": ["./env/react-app-env.d.ts", "**/*.ts", "**/*.tsx"],
+    "include": ["./env/preload-env.d.ts", "./env/react-app-env.d.ts", "**/*.ts", "**/*.tsx"],
     "exclude": ["**/node_modules/**/*", "**/*.test.ts"]
 }

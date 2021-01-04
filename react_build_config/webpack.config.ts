@@ -84,6 +84,27 @@ const hasJsxRuntime = (() => {
 
 // This is the production and development configuration.
 // It is focused on developer experience, fast rebuilds, and a minimal bundle.
+interface CssLoaderOption {
+    importLoaders: number;
+    sourceMap: boolean;
+    modules?:
+        | {
+              getLocalIdent: (
+                  context: webpack.loader.LoaderContext,
+                  localIdentName: string,
+                  localName: string,
+                  options: Record<string, unknown>
+              ) => string;
+          }
+        | {
+              getLocalIdent: (
+                  context: webpack.loader.LoaderContext,
+                  localIdentName: string,
+                  localName: string,
+                  options: Record<string, unknown>
+              ) => string;
+          };
+}
 export default function (webpackEnv: string): webpack.Configuration {
     const isEnvDevelopment = webpackEnv === "development";
     const isEnvProduction = webpackEnv === "production";
@@ -101,30 +122,7 @@ export default function (webpackEnv: string): webpack.Configuration {
     const shouldUseReactRefresh = env.raw.FAST_REFRESH;
 
     // common function to get style loaders
-    const getStyleLoaders = (
-        cssOptions: {
-            importLoaders: number;
-            sourceMap: boolean;
-            modules?:
-                | {
-                      getLocalIdent: (
-                          context: webpack.loader.LoaderContext,
-                          localIdentName: string,
-                          localName: string,
-                          options: Record<string, unknown>
-                      ) => string;
-                  }
-                | {
-                      getLocalIdent: (
-                          context: webpack.loader.LoaderContext,
-                          localIdentName: string,
-                          localName: string,
-                          options: Record<string, unknown>
-                      ) => string;
-                  };
-        },
-        preProcessor?: string
-    ) => {
+    const getStyleLoaders = (cssOptions: CssLoaderOption, preProcessor?: string) => {
         const loaders = [
             isEnvDevelopment && require.resolve("style-loader"),
             isEnvProduction && {

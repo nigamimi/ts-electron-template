@@ -17,6 +17,8 @@ yarn-error.log*
 renderer/build
 
 # cache
+## this project uses yarn util npm gets over yarn
+package-lock.json
 **/.eslintcache
 **/*.tsbuildinfo
 

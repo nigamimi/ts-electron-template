@@ -5,9 +5,14 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "jest",
-        "build:renderer": "node build_script/build_renderer.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "yarn build:main & yarn build:renderer",
+        "build:main": "yarn tsc:main",
+        "build:renderer": "yarn tsc:scripts && node build_script/build_renderer.js",
+        "start": "yarn build && yarn start:raw",
+        "start:raw": "./node_modules/.bin/electron ./electron_main/dist/main.js",
         "tsc": "yarn tsc:build_script & yarn tsc:main & yarn tsc:react_build_config",
+        "tsc:scripts": "yarn tsc:build_script & yarn tsc:react_build_config",
         "tsc:build_script": "cd build_script && ../node_modules/.bin/tsc",
         "tsc:main": "cd electron_main && ../node_modules/.bin/tsc",
         "tsc:react_build_config": "cd config &&  ../node_modules/.bin/tsc && cd ../react_build_config && ../node_modules/.bin/tsc"

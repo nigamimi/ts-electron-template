@@ -14,6 +14,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # production
+electron_main/dist
 electron_renderer/build
 
 # cache

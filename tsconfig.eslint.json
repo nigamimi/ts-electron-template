@@ -1,5 +1,7 @@
 {
-    "extends": "./main/tsconfig.json",
-    "include": ["**/*.ts"],
+    //multiple eslintrc files cannot be loaded for subdirectory.
+    //so here we should set it to react-specific tsconfig saddly.
+    "extends": "./renderer/tsconfig.json",
+    "include": ["**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]
 }

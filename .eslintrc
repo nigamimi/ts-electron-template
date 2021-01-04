@@ -34,13 +34,7 @@
             },
             //private member always needs to have leading underscore.
             {
-                "selector": "classProperty",
-                "modifiers": ["private"],
-                "format": null,
-                "leadingUnderscore": "require"
-            },
-            {
-                "selector": "classMethod",
+                "selector": "memberLike",
                 "modifiers": ["private"],
                 "format": null,
                 "leadingUnderscore": "require"
@@ -65,11 +59,25 @@
                 "format": ["camelCase"],
                 "leadingUnderscore": "forbid",
                 "trailingUnderscore": "require",
-                "suffix": ["_m","_meter","_km","_cm","_mm","_g","_mg","_kg","_s","_sec","_ms", "_min", "_h"],
+                "suffix": [
+                    "_m",
+                    "_meter",
+                    "_km",
+                    "_cm",
+                    "_mm",
+                    "_g",
+                    "_mg",
+                    "_kg",
+                    "_s",
+                    "_sec",
+                    "_ms",
+                    "_min",
+                    "_h"
+                ],
                 "filter": {
                     "regex": "_(m|meter|km|cm|mm|g|mg|kg|s|sec|ms|min|h)_?$",
                     "match": true
-                }      
+                }
             },
             {
                 "selector": "parameter",
@@ -89,13 +97,13 @@
             {
                 "selector": "function",
                 "format": null,
-                "leadingUnderscore": "allow"                
+                "leadingUnderscore": "allow"
             },
             {
                 "selector": "function",
                 "format": null,
                 "modifiers": ["exported"],
-                "leadingUnderscore": "forbid"    
+                "leadingUnderscore": "forbid"
             }
         ]
     }

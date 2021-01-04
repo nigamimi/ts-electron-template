@@ -93,11 +93,16 @@
                 "leadingUnderscore": "allow",
                 "trailingUnderscore": "allow"
             },
+            //function name convention
             //unexported function allowed to have leading underscore.
             {
                 "selector": "function",
+                "format": ["strictCamelCase"]
+            },
+            {
+                "selector": "function",
                 "format": null,
-                "leadingUnderscore": "allow"
+                "leadingUnderscore": "required"
             },
             {
                 "selector": "function",

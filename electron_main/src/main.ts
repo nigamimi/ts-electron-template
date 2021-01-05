@@ -6,9 +6,8 @@ const configFilename = path.resolve(__dirname, "../config.json");
 
 import { ElectronApp, ElectronAppPref } from "./electron_app";
 
-//can not import out of tsconfig.rootDir
-const { rendererPaths } = require("../../config/path_config");
-const rendererEntryPointHtml = path.join(rendererPaths.build as string, "index.html");
+import { rendererPaths } from "../../config/path_config";
+const rendererEntryPointHtml = path.join(rendererPaths.build, "index.html");
 
 const _loadConfig = async (): Promise<ElectronAppPref | null | Error> => {
     //no-op currently

@@ -43,16 +43,7 @@ const mainPathsRelative = {
     tsConfigProd: "tsconfig.prod.json",
 } as const;
 
-const mainPathsAbs = Object.fromEntries(
-    Object.entries(mainPathsRelative).map(([key_, value_]) => {
-        return [key_, joinPath(projectRootDir, mainDirName, value_)];
-    })
-) as {
-    [P in keyof typeof mainPathsRelative]: Join<
-        [typeof projectRootDir, typeof mainDirName, typeof mainPathsRelative[P]],
-        "/"
-    >;
-};
+const mainPathsAbs = _relativeToAbs(mainPathsRelative, projectRootDir, mainDirName);
 
 const productionFilename = "main.bundle.js";
 const productionEntryPoint = joinPath(productionDir, productionFilename);
@@ -81,3 +72,17 @@ export const rendererPaths = {
     nodeModules: "node_modules",
     swSrc: "electron_renderer/src/service-worker",
 } as const;
+
+function _relativeToAbs<T extends Record<string, string>, U extends string, R extends string>(
+    relativeRecord_: T,
+    projectRootDir_: U,
+    specificDir_: R
+) {
+    return Object.fromEntries(
+        Object.entries(relativeRecord_).map(([key_, value_]) => {
+            return [key_, joinPath(projectRootDir_, specificDir_, value_)];
+        })
+    ) as {
+        [P in keyof T]: Join<[U, R, T[P]], "/">;
+    };
+}

@@ -109,6 +109,19 @@
                 "format": null,
                 "modifiers": ["exported"],
                 "leadingUnderscore": "forbid"
+            },
+            //variable name convention
+            //unexported variable allowed to have leading underscore.
+            {
+                "selector": "variable",
+                "format": ["strictCamelCase"],
+                "leadingUnderscore": "allow"
+            },
+            {
+                "selector": "variable",
+                "format": ["strictCamelCase"],
+                "modifiers": ["exported"],
+                "leadingUnderscore": "forbid"
             }
         ]
     }

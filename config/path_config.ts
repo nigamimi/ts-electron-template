@@ -41,10 +41,12 @@ const mainSourceDir = "src";
 const mainPathsRelative = {
     sourceDir: mainSourceDir,
     entryPoint: joinPath(mainSourceDir, "main.ts"),
+    preload: joinPath(mainSourceDir, "preload.ts"),
     tsConfigDev: "tsconfig.dev.json",
     tsConfigProd: "tsconfig.prod.json",
 } as const;
-const mainProductionFilename = "main.bundle.js";
+const mainProductionFilename = "main.js";
+const preloadProductionFilename = "preload.js";
 
 export const mainPaths = {
     productionDir: joinPath(productionDir, "main"),
@@ -56,10 +58,12 @@ export const mainPaths = {
                                     PATHS FOR RENDERER PROCESS
 **************************************************************************************************/
 const rendererDirName = "electron_renderer";
+const publicDir = "public";
+const rendererEntryPoint = "index.html";
 
 const relativeToRendererDir = {
-    public: "public",
-    html: "public/index.html",
+    public: publicDir,
+    html: joinPath(publicDir, rendererEntryPoint),
     indexJs: "src/index",
     src: "src",
     tsConfig: "tsconfig.json",
@@ -80,10 +84,16 @@ export const rendererPaths = {
 } as const;
 
 /* ************************************************************************************************
-                                    PATHS BETWEEN BUILT
+                                    PATHS FOR BUILT PRODUCTION
 **************************************************************************************************/
 
-export const mainToRendererEntryPoint = path.relative(
-    mainPaths.productionEntryPoint,
-    path.join(projectRootDir, rendererPaths.build, path.basename(rendererPaths.html))
-);
+export const builtPaths = {
+    rendererEntryPoint: joinPath(
+        projectRootDir,
+        productionDirRelative,
+        "renderer",
+        rendererEntryPoint
+    ),
+    mainEntryPoint: mainPaths.productionEntryPoint,
+    preload: joinPath(productionDir, "main", preloadProductionFilename),
+};

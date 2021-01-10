@@ -6,7 +6,7 @@ const configFilename = path.resolve(__dirname, "../config.json");
 
 import { ElectronApp, ElectronAppPref } from "./electron_app";
 
-import { mainToRendererEntryPoint } from "../../config/path_config";
+import { builtPaths } from "../../config/path_config";
 
 const _loadConfig = async (): Promise<ElectronAppPref | null | Error> => {
     //no-op currently
@@ -29,7 +29,9 @@ const _loadConfig = async (): Promise<ElectronAppPref | null | Error> => {
 
 void (async () => {
     const electronApp = new ElectronApp();
+    const url = new URL(builtPaths.rendererEntryPoint, "file://");
     electronApp.launch({
-        entryPointHtml: mainToRendererEntryPoint,
+        entryPointHtml: url.href,
+        preload: builtPaths.preload,
     });
 })();

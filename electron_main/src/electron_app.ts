@@ -1,10 +1,12 @@
 import events from "events";
 import fs from "fs";
 import path from "path";
+import url from "url";
 import { app, BrowserWindow, dialog } from "electron";
 
 export interface ElectronAppPref {
     entryPointHtml: string;
+    preload: string;
 }
 export function isElectronAppPref(input_: any): input_ is ElectronAppPref {
     return true;
@@ -20,7 +22,7 @@ export class ElectronApp {
         this.mainWindow = null;
     }
 
-    async launch(opt_: ElectronAppPref | Error) {
+    async launch(opt_: ElectronAppPref | Error): Promise<void> {
         if (opt_ instanceof Error) {
             return this._handlePrefError(opt_);
         }
@@ -50,12 +52,11 @@ export class ElectronApp {
                 // レンダラープロセスに公開するAPIのファイル
                 //（Electron 11 から、デフォルト：falseが非推奨となった）
                 contextIsolation: true,
-                preload: path.join(__dirname, "preload.js"),
+                preload: opt.preload,
             },
         });
 
-        const pathMain = "file://" + opt.entryPointHtml;
-        this.mainWindow.loadURL(pathMain);
+        this.mainWindow.loadURL(opt.entryPointHtml);
 
         this.mainWindow.on("closed", () => {
             this.mainWindow = null;

@@ -7,9 +7,12 @@ import { mainPaths } from "./path_config";
 
 export const baseConfig: webpack.Configuration = {
     target: "electron-main",
-    entry: mainPaths.entryPoint,
+    entry: {
+        main: mainPaths.entryPoint,
+        preload: mainPaths.preload,
+    },
     output: {
-        filename: "[name].bundle.js",
+        filename: "[name].js",
         path: mainPaths.productionDir,
         // commonjs2 is module spec for node.js
         // for node.js is extended pure commonjs

@@ -27,5 +27,5 @@ package-lock.json
 **/*.js
 # unless specified below
 !build_script/test_renderer.js
-!react_build_config/pnpTs.js
-!react_build_config/jest/*.js
+!config/renderer/pnpTs.js
+!config/renderer/jest/*.js

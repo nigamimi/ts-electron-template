@@ -14,8 +14,7 @@ yarn-debug.log*
 yarn-error.log*
 
 # production
-electron_main/dist
-electron_renderer/build
+electron_built
 
 # cache
 ## this project uses yarn util npm gets over yarn

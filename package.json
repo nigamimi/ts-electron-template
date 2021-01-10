@@ -11,8 +11,7 @@
         "build:renderer": "yarn tsc:scripts && node build_script/build_renderer.js",
         "start": "yarn build && yarn start:raw",
         "start:raw": "./node_modules/.bin/electron ./electron_main/dist/main.js",
-        "tsc": "yarn tsc:build_script & yarn tsc:main & yarn tsc:react_build_config",
-        "tsc:others": "./node_modules/.bin/tsc"
+        "tsc": "./node_modules/.bin/tsc"
     },
     "author": "",
     "license": "ISC",

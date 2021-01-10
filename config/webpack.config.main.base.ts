@@ -3,14 +3,14 @@ import path from "path";
 
 import type webpack from "webpack";
 
-import { productionDir, mainPaths } from "./path_config";
+import { mainPaths } from "./path_config";
 
 export const baseConfig: webpack.Configuration = {
     target: "electron-main",
     entry: mainPaths.entryPoint,
     output: {
         filename: "[name].bundle.js",
-        path: productionDir,
+        path: mainPaths.productionDir,
         // commonjs2 is module spec for node.js
         // for node.js is extended pure commonjs
         // https://github.com/webpack/webpack/issues/1114

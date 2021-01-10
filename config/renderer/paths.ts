@@ -10,7 +10,7 @@ import fs from "fs";
 import getPublicUrlOrPath from "react-dev-utils/getPublicUrlOrPath";
 
 //addition
-import { projectRootDir, rendererPaths, homePage } from "../config/path_config";
+import { projectRootDir, rendererPaths, homePage } from "../path_config";
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebook/create-react-app/issues/637

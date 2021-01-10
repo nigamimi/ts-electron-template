@@ -18,7 +18,7 @@ process.on("unhandledRejection", (err) => {
 });
 
 // Ensure environment variables are read.
-import "../react_build_config/env";
+import "../config/renderer/env";
 
 import path from "path";
 import chalk from "chalk";
@@ -26,8 +26,8 @@ import fs from "fs-extra";
 //@ts-expect-error
 import bfj from "bfj";
 import webpack from "webpack";
-import configFactory from "../react_build_config/webpack.config";
-import paths from "../react_build_config/paths";
+import configFactory from "../config/webpack.config.renderer";
+import paths from "../config/renderer/paths";
 import checkRequiredFiles from "react-dev-utils/checkRequiredFiles";
 import formatWebpackMessages from "react-dev-utils/formatWebpackMessages";
 import printHostingInstructions from "react-dev-utils/printHostingInstructions";

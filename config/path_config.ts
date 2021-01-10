@@ -2,8 +2,6 @@
 import path from "path";
 import packageJsonContent from "../package.json";
 
-import getPublicUrlOrPath from "react-dev-utils/getPublicUrlOrPath";
-
 import { joinPath, relativeToAbs, RelativeToAbs } from "./util/join_path";
 
 // basically homepage key should not be set.
@@ -70,6 +68,7 @@ const relativeToRendererDir = {
     proxySetup: "src/setupProxy.js",
     swSrc: "src/service-worker",
 } as const;
+
 export const rendererPaths = {
     build: joinPath(productionDirRelative, "renderer"),
     dotenv: ".env",
@@ -79,3 +78,12 @@ export const rendererPaths = {
     nodeModules: "node_modules",
     ...relativeToAbs(relativeToRendererDir, rendererDirName),
 } as const;
+
+/* ************************************************************************************************
+                                    PATHS BETWEEN BUILT
+**************************************************************************************************/
+
+export const mainToRendererEntryPoint = path.relative(
+    mainPaths.productionEntryPoint,
+    path.join(projectRootDir, rendererPaths.build, path.basename(rendererPaths.html))
+);

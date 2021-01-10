@@ -7,8 +7,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "yarn build:main & yarn build:renderer",
-        "build:main": "yarn tsc:scripts && node build_script/build_renderer.js",
-        "build:renderer": "yarn tsc:scripts && node build_script/build_renderer.js",
+        "build:main": "yarn tsc && node build_script/build_main.js",
+        "build:renderer": "yarn tsc && node build_script/build_renderer.js",
         "start": "yarn build && yarn start:raw",
         "start:raw": "./node_modules/.bin/electron ./electron_main/dist/main.js",
         "tsc": "./node_modules/.bin/tsc"

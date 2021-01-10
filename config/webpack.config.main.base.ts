@@ -30,4 +30,5 @@ export const baseConfig: webpack.Configuration = {
             name: false,
         },
     },
+    performance: false,
 };

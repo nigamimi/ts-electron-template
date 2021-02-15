@@ -1,0 +1,128 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.start = void 0;
+// Do this as the first thing so that any code reading it knows the right env.
+process.env.BABEL_ENV = "development";
+process.env.NODE_ENV = "development";
+// Makes the script crash on unhandled rejections instead of silently
+// ignoring them. In the future, promise rejections that are not handled will
+// terminate the Node.js process with a non-zero exit code.
+process.on("unhandledRejection", (err) => {
+    throw err;
+});
+// Ensure environment variables are read.
+const env_1 = require("./config/env");
+const fs_1 = __importDefault(require("fs"));
+const chalk_1 = __importDefault(require("chalk"));
+const webpack_1 = __importDefault(require("webpack"));
+const webpack_dev_server_1 = __importDefault(require("webpack-dev-server"));
+const clearConsole_1 = __importDefault(require("react-dev-utils/clearConsole"));
+const checkRequiredFiles_1 = __importDefault(require("react-dev-utils/checkRequiredFiles"));
+const WebpackDevServerUtils_1 = require("react-dev-utils/WebpackDevServerUtils");
+const prepareUrls = require("react-dev-utils/WebpackDevServerUtils").prepareUrls;
+const createCompiler = require("react-dev-utils/WebpackDevServerUtils").createCompiler;
+const openBrowser_1 = __importDefault(require("react-dev-utils/openBrowser"));
+const semver_1 = __importDefault(require("semver"));
+const paths_1 = require("./config/paths");
+const webpack_config_1 = __importDefault(require("./config/webpack.config"));
+const webpackDevServer_config_1 = __importDefault(require("./config/webpackDevServer.config"));
+const env_2 = __importDefault(require("./config/env"));
+// We require that you explicitly set browsers and do not fall back to
+// browserslist defaults.
+const browsersHelper_1 = require("react-dev-utils/browsersHelper");
+const start = async (dotenvPath, appDir, pathsRelative, buildDirRelative) => {
+    env_1.setEnv(dotenvPath);
+    const paths = paths_1.getPaths(appDir, pathsRelative, buildDirRelative);
+    const react = require(require.resolve("react", { paths: [paths.appPath] }));
+    const env = env_2.default(paths.publicUrlOrPath.slice(0, -1));
+    const useYarn = fs_1.default.existsSync(paths.yarnLockFile);
+    const isInteractive = process.stdout.isTTY;
+    // Warn and crash if required files are missing
+    if (!checkRequiredFiles_1.default([paths.appHtml, paths.appIndexJs])) {
+        process.exit(1);
+    }
+    // Tools like Cloud9 rely on this.
+    const DEFAULT_PORT = (process.env.PORT && parseInt(process.env.PORT, 10)) || 3000;
+    const HOST = process.env.HOST || "0.0.0.0";
+    if (process.env.HOST) {
+        console.log(chalk_1.default.cyan(`Attempting to bind to HOST environment variable: ${chalk_1.default.yellow(chalk_1.default.bold(process.env.HOST))}`));
+        console.log(`If this was unintentional, check that you haven't mistakenly set it in your shell.`);
+        console.log(`Learn more here: ${chalk_1.default.yellow("https://cra.link/advanced-config")}`);
+        console.log();
+    }
+    try {
+        await browsersHelper_1.checkBrowsers(paths.appPath, isInteractive);
+        // We attempt to use the default port but if it is busy, we offer the user to
+        // run on a different port. `choosePort()` Promise resolves to the next free port.
+        const port = await WebpackDevServerUtils_1.choosePort(HOST, DEFAULT_PORT);
+        if (port == null) {
+            // We have not found a port.
+            console.log("fount no port.");
+            return;
+        }
+        const config = webpack_config_1.default("development", paths);
+        const protocol = process.env.HTTPS === "true" ? "https" : "http";
+        const appName = require(paths.appPackageJson).name;
+        const useTypeScript = fs_1.default.existsSync(paths.appTsConfig);
+        const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === "true";
+        const urls = prepareUrls(protocol, HOST, port, paths.publicUrlOrPath.slice(0, -1));
+        const devSocket = {
+            warnings: (warnings) => devServer.sockWrite(devServer.sockets, "warnings", warnings),
+            errors: (errors) => devServer.sockWrite(devServer.sockets, "errors", errors),
+        };
+        // Create a webpack compiler that is configured with custom messages.
+        const compiler = createCompiler({
+            appName,
+            config,
+            devSocket,
+            urls,
+            useYarn,
+            useTypeScript,
+            tscCompileOnError,
+            webpack: webpack_1.default,
+        });
+        // Load proxy config
+        const proxySetting = require(paths.appPackageJson).proxy;
+        const proxyConfig = WebpackDevServerUtils_1.prepareProxy(proxySetting, paths.appPublic, paths.publicUrlOrPath);
+        // Serve webpack assets generated by the compiler over a web server.
+        const serverConfig = webpackDevServer_config_1.default(paths, proxyConfig, urls.lanUrlForConfig);
+        const devServer = new webpack_dev_server_1.default(compiler, serverConfig);
+        // Launch WebpackDevServer.
+        devServer.listen(port, HOST, (err) => {
+            if (err) {
+                return console.log(err);
+            }
+            if (isInteractive) {
+                clearConsole_1.default();
+            }
+            if (env.raw.FAST_REFRESH && semver_1.default.lt(react.version, "16.10.0")) {
+                console.log(chalk_1.default.yellow(`Fast Refresh requires React 16.10 or higher. You are using React ${react.version}.`));
+            }
+            console.log(chalk_1.default.cyan("Starting the development server...\n"));
+            openBrowser_1.default(urls.localUrlForBrowser);
+        });
+        ["SIGINT", "SIGTERM"].forEach(function (sig) {
+            process.on(sig, function () {
+                devServer.close();
+                process.exit();
+            });
+        });
+        if (process.env.CI !== "true") {
+            // Gracefully exit when stdin ends
+            process.stdin.on("end", function () {
+                devServer.close();
+                process.exit();
+            });
+        }
+    }
+    catch (err) {
+        if (err && err.message) {
+            console.log(err.message);
+        }
+        process.exit(1);
+    }
+};
+exports.start = start;

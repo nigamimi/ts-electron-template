@@ -42,7 +42,7 @@ const createCompiler = require("react-dev-utils/WebpackDevServerUtils").createCo
 import openBrowser from "react-dev-utils/openBrowser";
 import semver from "semver";
 import { getPaths } from "./config/paths";
-import { PathConfig } from "./config/path_config";
+import { PathConfigRelative } from "./config/path_config";
 import configFactory from "./config/webpack.config";
 import createDevServerConfig from "./config/webpackDevServer.config";
 import getClientEnvironment from "./config/env";
@@ -54,7 +54,7 @@ import { checkBrowsers } from "react-dev-utils/browsersHelper";
 export const start = async (
     dotenvPath: string,
     appDir: string,
-    pathsRelative: Omit<PathConfig, "appBuild" | "publicUrlOrPath" | "moduleFileExtensions">,
+    pathsRelative: PathConfigRelative,
     buildDirRelative?: string
 ) => {
     setEnv(dotenvPath);

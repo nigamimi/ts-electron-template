@@ -40,7 +40,8 @@ import bfj from "bfj";
 // browserslist defaults.
 import { checkBrowsers } from "react-dev-utils/browsersHelper";
 import configFactory from "./config/webpack.config";
-import { PathConfig } from "./config/path_config";
+import { PathConfigRelative } from "./config/path_config";
+import { getPaths } from "./config/paths";
 
 /*!*************************************************************************************************
                                             CONSTANTS
@@ -61,12 +62,12 @@ const writeStatsJson = argv.indexOf("--stats") !== -1;
 export const build = async (
     dotenvPath: string,
     appDir: string,
-    pathsRelative: Omit<PathConfig, "appBuild" | "publicUrlOrPath" | "moduleFileExtensions">,
-    buildDirRelative?: string
+    pathsRelative: PathConfigRelative,
+    buildDirAbsolute?: string,
+    homePage?: string
 ) => {
     setEnv(dotenvPath);
-    const { getPaths } = await import("./config/paths");
-    const paths = getPaths(appDir, pathsRelative, buildDirRelative);
+    const paths = getPaths(appDir, pathsRelative, buildDirAbsolute, homePage);
 
     const useYarn = fse.existsSync(paths.yarnLockFile);
     // Warn and crash if required files are missing

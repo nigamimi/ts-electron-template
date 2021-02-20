@@ -1,7 +1,7 @@
 {
     "name": "electron-main-builder",
     "version": "0.0.1",
-    "main": "index.js",
+    "main": "dist/index.js",
     "license": "MIT",
     "private": true,
     "dependencies": {

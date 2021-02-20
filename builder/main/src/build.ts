@@ -32,7 +32,9 @@ import { setEnv } from "./config/env";
 
 // import devConfig from "./config/webpack.config.main.dev";
 import prodConfigFactory from "./config/webpack.config.main.prod";
-import { PathConfig } from "./config/paths";
+import { PathConfigRelative } from "./config/path_config";
+
+import { getPaths } from "./config/paths";
 
 /*!*************************************************************************************************
                                             CONSTANTS
@@ -47,12 +49,11 @@ const writeStatsJson = argv.indexOf("--stats") !== -1;
 export const build = async (
     dotenvPath: string | undefined,
     appDir: string,
-    pathsRelative: Omit<PathConfig, "appBuild" | "publicUrlOrPath" | "moduleFileExtensions">,
-    buildDirRelative: string
+    pathsRelative: PathConfigRelative,
+    buildDirAbsolute: string
 ) => {
     if (dotenvPath) setEnv(dotenvPath);
-    const { getPaths } = await import("./config/paths");
-    const paths = getPaths(appDir, pathsRelative, buildDirRelative);
+    const paths = getPaths(appDir, pathsRelative, buildDirAbsolute);
 
     try {
         // First, read the current file sizes in build directory.

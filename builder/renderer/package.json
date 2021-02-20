@@ -2,7 +2,7 @@
     "name": "create-react-app-builder",
     "version": "0.1.0",
     "private": true,
-    "main": "index.js",
+    "main": "dist/index.js",
     "dependencies": {
         "@babel/core": "7.12.3",
         "@pmmmwh/react-refresh-webpack-plugin": "0.4.3",
@@ -158,5 +158,8 @@
         "presets": [
             "react-app"
         ]
+    },
+    "scripts": {
+        "tsc": "./node_modules/.bin/tsc"
     }
 }

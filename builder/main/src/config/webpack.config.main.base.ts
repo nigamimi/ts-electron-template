@@ -1,11 +1,11 @@
-"use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
 /* eslint-disable @typescript-eslint/naming-convention */
-const path_1 = __importDefault(require("path"));
-exports.default = (paths) => {
+import path from "path";
+
+import type webpack from "webpack";
+
+import { PathConfig } from "./path_config";
+
+export default (paths: PathConfig): webpack.Configuration => {
     return {
         target: "electron-main",
         entry: {
@@ -42,7 +42,7 @@ exports.default = (paths) => {
         },
         resolve: {
             extensions: [".ts", ".tsx", ".json"],
-            modules: [path_1.default.resolve(__dirname, "../", "node_modules")],
+            modules: [path.resolve(__dirname, "../", "node_modules")],
         },
         optimization: {
             splitChunks: {

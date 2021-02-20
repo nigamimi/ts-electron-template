@@ -37,7 +37,7 @@ const resolveModule = (resolveFn: (str: string) => string, filePath: string) => 
 export const getPaths = (
     appDir: string,
     pathsRelative: Omit<PathConfig, "appBuild" | "publicUrlOrPath" | "moduleFileExtensions">,
-    buildDirRelative?: string,
+    buildDirAbsolute?: string,
     homepage?: string
 ): PathConfig => {
     // Make sure any symlinks in the project folder are resolved:
@@ -45,7 +45,7 @@ export const getPaths = (
     const appDirectoryReal = fs.realpathSync(appDir);
     const resolveApp = (relativePath: string) => path.resolve(appDirectoryReal, relativePath);
 
-    const buildPath = buildDirRelative || process.env.BUILD_PATH || "build";
+    const buildPath = buildDirAbsolute || resolveApp(process.env.BUILD_PATH || "build");
 
     // We use `PUBLIC_URL` environment variable or "homepage" field to infer
     // "public path" at which the app is served.
@@ -88,7 +88,7 @@ export const getPaths = (
             | "testsSetup"
             | "swSrc"
         >),
-        appBuild: resolveApp(buildPath),
+        appBuild: buildPath,
         appIndexJs: resolveModule(resolveApp, pathsRelative.appIndexJs),
         testsSetup: resolveModule(resolveApp, pathsRelative.testsSetup),
         swSrc: resolveModule(resolveApp, pathsRelative.swSrc),

@@ -3,13 +3,13 @@
 
 import type webpack from "webpack";
 import { merge } from "webpack-merge";
-// import TerserPlugin from "terser-webpack-plugin";
 
 import baseConfig from "./webpack.config.main.base";
-import { PathConfig } from "./paths";
+import { PathConfig } from "./path_config";
 
 export default (paths: PathConfig): webpack.Configuration => {
     return merge(baseConfig(paths), {
-        mode: "production",
+        mode: "development",
+        devtool: "inline-source-map",
     });
 };

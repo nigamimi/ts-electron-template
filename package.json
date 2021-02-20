@@ -5,17 +5,27 @@
     "description": "",
     "main": "index.js",
     "scripts": {
+        "tsc:builder:main": "cd builder/main && yarn && yarn tsc",
+        "tsc:builder:renderer": "cd builder/renderer && yarn && yarn tsc",
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "yarn build:main & yarn build:renderer",
-        "build:main": "yarn tsc && node build_script/build_main.js",
-        "build:renderer": "yarn tsc && node build_script/build_renderer.js",
+        "build:main": "yarn tsc && node script/build.main.js",
+        "build:renderer": "yarn tsc && node script/build.renderer.js",
         "start": "yarn build && yarn start:raw",
         "start:raw": "./node_modules/.bin/electron ./electron_built/main/main.js",
         "tsc": "./node_modules/.bin/tsc -p ./tsconfig.other.json"
     },
     "author": "",
     "license": "ISC",
-    "devDependencies": {},
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^4.15.1",
+        "@typescript-eslint/parser": "^4.15.1",
+        "concurrently": "^5.3.0",
+        "eslint": "^7.20.0",
+        "eslint-config-prettier": "^7.2.0",
+        "ts-loader": "^8.0.17",
+        "webpack": "^5.22.0"
+    },
     "dependencies": {
         "@types/react": "^17.0.2",
         "@types/react-dom": "^17.0.1",

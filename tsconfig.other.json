@@ -17,7 +17,7 @@
         // "outDir": "" /* Redirect output structure to the directory. */,
         // "rootDir": "./",                       /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
         // "composite": true,                     /* Enable project compilation */
-        "tsBuildInfoFile": "./build_temp/tsconfig.tsbuildinfo" /* Specify file to store incremental compilation information */,
+        "tsBuildInfoFile": "./temp/tsconfig.tsbuildinfo" /* Specify file to store incremental compilation information */,
         // "removeComments": true,                /* Do not emit comments to output. */
         // "noEmit": true,                        /* Do not emit outputs. */
         "importHelpers": true /* Import emit helpers from 'tslib'. */,
@@ -74,7 +74,7 @@
         "./electron_main",
         "./electron_renderer",
         "./electron_share",
-        "**/node_modules/**/*",
+        "./node_modules",
         "**/*.test.ts"
     ]
 }

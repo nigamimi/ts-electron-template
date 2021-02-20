@@ -15,7 +15,7 @@
         "jsx": "preserve" /* Specify JSX code generation: 'preserve', 'react-native', or 'react'. */,
 
         "noEmit": true /* Do not emit outputs. */,
-        "isolatedModules": true /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */,
+        // "isolatedModules": true /* Transpile each file as a separate module (similar to 'ts.transpileModule'). */,
 
         "strict": true /* Enable all strict type-checking options. */,
 

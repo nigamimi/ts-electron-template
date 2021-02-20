@@ -52,6 +52,10 @@ export const build = async (
     pathsRelative: PathConfigRelative,
     buildDirAbsolute: string
 ) => {
+    console.log(
+        chalk.magenta(`webpack version: ${(await import("webpack/package.json")).version}`)
+    );
+
     if (dotenvPath) setEnv(dotenvPath);
     const paths = getPaths(appDir, pathsRelative, buildDirAbsolute);
 

@@ -3,8 +3,6 @@ electron_built
 
 # ignore all javascript file
 **/*.js
-# unless specified below
-!builder/**/*.js
 
 # this project uses yarn util npm gets over yarn
 package-lock.json

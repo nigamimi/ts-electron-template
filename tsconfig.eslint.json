@@ -1,7 +1,7 @@
 {
     //multiple eslintrc files cannot be loaded for subdirectory.
     //so here we should set it to react-specific tsconfig saddly.
-    "extends": "./electron_renderer/tsconfig.json",
+    "extends": "./electron_renderer/tsconfig.renderer.json",
     "include": ["**/*.ts", "**/*.tsx"],
     "exclude": ["node_modules"]
 }

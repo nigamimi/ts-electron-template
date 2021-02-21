@@ -97,7 +97,7 @@
             //unexported function allowed to have leading underscore.
             {
                 "selector": "function",
-                "format": ["strictCamelCase"]
+                "format": ["strictCamelCase", "PascalCase"]
             },
             {
                 "selector": "function",
